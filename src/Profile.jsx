@@ -7,7 +7,7 @@ function Profile() {
 
   useEffect(() => {
     // Fetch Profile
-    axios.get('http://localhost:3000/profile')
+    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/profile')
       .then((res) => {
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         if (data) setProfile(data);
@@ -15,7 +15,7 @@ function Profile() {
       .catch((err) => console.error('Fetch profile error:', err));
 
     // Fetch Followers
-    axios.get('http://localhost:3000/followers')
+    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/followers')
       .then((res) => setFollowers(res.data))
       .catch((err) => console.error('Fetch followers error:', err));
   }, []);

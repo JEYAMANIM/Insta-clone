@@ -8,7 +8,7 @@ function Viewstory() {
   const navigate = useNavigate()
   
   useEffect(() => {
-    fetch(`http://localhost:3000/story/${id}`)
+    fetch(`https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/story/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Story not found');

@@ -8,7 +8,7 @@ function Story() {
   let tot = 0
 
   useEffect(() => {
-    fetch("http://localhost:3000/story")
+    fetch("https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/story")
       .then((res) => res.json())
       .then((data) => setStories(data))
       .catch((err) => console.log(err));

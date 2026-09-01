@@ -11,7 +11,7 @@ const mockPosts = [
 function Post() {
  const [Posts, setPosts] = useState([])
  useEffect(()=>{
-    fetch("http://localhost:3000/posts")
+    fetch(`https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/posts`)
     .then((data)=>data.json())
     .then((data=>setPosts(data)))
     .catch((err)=>console.log(err))
