@@ -7,7 +7,7 @@ function Suggestions() {
 
   useEffect(() => {
     // 1. Fetch User Profile
-    axios.get('http://localhost:3000/profile')
+    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/profile')
       .then((res) => {
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         setProfile(data);
@@ -15,7 +15,7 @@ function Suggestions() {
       .catch((err) => console.error('Profile fetch error:', err));
 
     // 2. Fetch Suggestions
-    axios.get('http://localhost:3000/suggestions')
+    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/suggestions')
       .then((res) => setSuggestions(res.data))
       .catch((err) => console.error('Suggestions fetch error:', err));
   }, []);

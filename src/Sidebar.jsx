@@ -25,7 +25,7 @@ function Sidebar({ isCollapsed, setIsCollapsed }) {
         {/* Header Logo */}
         <div className="p-2 h-12 flex items-center">
           {!isCollapsed ? (
-            <img className="w-28 bg-white rounded" src="./src/assets/instagram_text.jpg" alt="Instagram" />
+            <img className="w-28 bg-white rounded" src="/logo.png" alt="Instagram" />
           ) : (
             <span className="font-bold text-xl px-2">IG</span>
           )}
