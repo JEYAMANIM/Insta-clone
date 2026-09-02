@@ -1,114 +1,152 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { apiClient } from './api/apiClient';
 
 function Suggestions() {
   const [profile, setProfile] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // 1. Fetch User Profile
-    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/profile')
-      .then((res) => {
-        const data = Array.isArray(res.data) ? res.data[0] : res.data;
-        setProfile(data);
-      })
-      .catch((err) => console.error('Profile fetch error:', err));
+    let isMounted = true;
 
-    // 2. Fetch Suggestions
-    axios.get('https://my-json-server.typicode.com/JEYAMANIM/Insta-clone/suggestions')
-      .then((res) => setSuggestions(res.data))
-      .catch((err) => console.error('Suggestions fetch error:', err));
+    Promise.all([apiClient.getProfile(), apiClient.getSuggestions()])
+      .then(([profData, suggData]) => {
+        if (isMounted) {
+          if (profData) setProfile(profData);
+          if (suggData) setSuggestions(Array.isArray(suggData) ? suggData : []);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching suggestions:', err);
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const handleToggleFollow = (e, item) => {
-    e.preventDefault(); // Stop default button submit behavior
+  const handleToggleFollow = async (e, item) => {
+    e.preventDefault();
     const nextState = !item.isFollowing;
 
-    // A. Update React UI state immediately
+    // Optimistic UI update
     setSuggestions((prev) =>
       prev.map((user) =>
         user.id === item.id ? { ...user, isFollowing: nextState } : user
       )
     );
 
-    // B. Save isFollowing directly to /suggestions endpoint in db.json
-    axios.patch(`http://localhost:3000/suggestions/${item.id}`, {
-      isFollowing: nextState,
-    }).catch((err) => console.error('Error updating suggestion status:', err));
-
-    // C. Sync with /followers endpoint
-    if (nextState) {
-      axios.post('http://localhost:3000/followers', {
-        id: item.id,
-        username: item.username,
-        profilePicture: item.profilePicture,
-      }).catch((err) => console.error('Error adding follower:', err));
-    } else {
-      axios.delete(`http://localhost:3000/followers/${item.id}`)
-        .catch((err) => console.error('Error removing follower:', err));
-    }
+    await apiClient.toggleFollow(item.id, nextState);
   };
+
+  if (loading) {
+    return (
+      <div className="w-full space-y-4 p-2 animate-pulse">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-full bg-neutral-800"></div>
+          <div className="space-y-1.5 flex-1">
+            <div className="w-24 h-3 bg-neutral-800 rounded"></div>
+            <div className="w-16 h-2.5 bg-neutral-800 rounded"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-6 text-white p-2">
       {/* Current User Profile Banner */}
       {profile && (
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              className="w-11 h-11 rounded-full object-cover ring-2 ring-purple-500/30"
-              src={profile.profilePicture || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
-              alt={profile.username}
-            />
+          <div
+            onClick={() => navigate('/profile')}
+            className="flex items-center gap-3 cursor-pointer group"
+          >
+            <div className="p-[1.5px] bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full">
+              <img
+                className="w-11 h-11 rounded-full object-cover border-2 border-black"
+                src={
+                  profile.profilePicture ||
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+                }
+                alt={profile.username || 'User'}
+              />
+            </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-sm">{profile.username}</span>
+              <span className="font-semibold text-sm group-hover:underline">
+                {profile.username}
+              </span>
               <span className="text-xs text-neutral-400">{profile.fullName}</span>
             </div>
           </div>
-          <button className="text-xs font-semibold text-purple-400 hover:text-purple-300 transition">
-            Switch
+          <button
+            type="button"
+            onClick={() => navigate('/profile')}
+            className="text-xs font-semibold text-purple-400 hover:text-purple-300 transition"
+          >
+            Profile
           </button>
         </div>
       )}
 
       {/* Suggestions Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-2">
         <span className="text-xs font-semibold text-neutral-400">Suggestions for you</span>
-        <button className="text-xs font-semibold text-white hover:text-gray-300 transition">
+        <button
+          type="button"
+          onClick={() => navigate('/profile')}
+          className="text-xs font-semibold text-neutral-300 hover:text-white transition"
+        >
           See all
         </button>
       </div>
 
       {/* Suggestions List */}
       <div className="space-y-4">
-        {suggestions.map((item) => (
-          <div key={item.id} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img
-                className="w-9 h-9 rounded-full object-cover ring-1 ring-neutral-800"
-                src={item.profilePicture || `https://i.pravatar.cc/150?u=${item.id}`}
-                alt={item.username}
-              />
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold">{item.username}</span>
-                <span className="text-[11px] text-neutral-500">Suggested for you</span>
+        {suggestions.length > 0 ? (
+          suggestions.map((item) => (
+            <div key={item.id} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <img
+                  className="w-9 h-9 rounded-full object-cover ring-1 ring-neutral-800"
+                  src={
+                    item.profilePicture ||
+                    `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150`
+                  }
+                  alt={item.username}
+                />
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold">{item.username}</span>
+                  <span className="text-[11px] text-neutral-500">Suggested for you</span>
+                </div>
               </div>
-            </div>
 
-            {/* Follow / Following Toggle Button */}
-            <button
-              type="button"
-              onClick={(e) => handleToggleFollow(e, item)}
-              className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors ${
-                item.isFollowing
-                  ? 'bg-neutral-800 text-neutral-200 hover:bg-neutral-700'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
-              }`}
-            >
-              {item.isFollowing ? 'Following' : 'Follow'}
-            </button>
-          </div>
-        ))}
+              {/* Follow / Following Toggle Button */}
+              <button
+                type="button"
+                onClick={(e) => handleToggleFollow(e, item)}
+                className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors ${
+                  item.isFollowing
+                    ? 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                    : 'bg-blue-600 text-white hover:bg-blue-500'
+                }`}
+              >
+                {item.isFollowing ? 'Following' : 'Follow'}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="text-xs text-neutral-500">No suggestions available</p>
+        )}
+      </div>
+
+      {/* Footer Info */}
+      <div className="pt-4 text-[11px] text-neutral-600 space-y-2">
+        <p>© 2026 Instagram Clone by JEYAMANIM</p>
       </div>
     </div>
   );

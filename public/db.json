@@ -1,0 +1,445 @@
+{
+  "posts": [
+    {
+      "id": "post_101",
+      "type": "image",
+      "user": {
+        "id": "u_001",
+        "username": "travel_diaries",
+        "fullName": "Alex Explorer",
+        "profilePicture": "https://i.pravatar.cc/150?u=travel_diaries",
+        "isVerified": true
+      },
+      "location": "Santorini, Greece",
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "aspectRatio": "4:5"
+      },
+      "caption": "Chasing sunsets in the most beautiful place on earth. 🌅 The architecture here is absolutely breathtaking. Drop a 💙 if you want to visit!",
+      "hashtags": [
+        "#santorini",
+        "#travelgram",
+        "#sunsetlovers",
+        "#wanderlust"
+      ],
+      "mentions": [],
+      "engagement": {
+        "likesCount": 12453,
+        "commentsCount": 342,
+        "sharesCount": 89,
+        "hasLiked": false,
+        "hasSaved": true
+      },
+      "timestamp": "2026-08-07T14:30:00Z",
+      "topComments": [
+        {
+          "id": "c_001",
+          "username": "wander_lust_99",
+          "text": "Added to my bucket list! 😍",
+          "likesCount": 45,
+          "timestamp": "2026-08-07T14:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "post_102",
+      "type": "video",
+      "user": {
+        "id": "u_002",
+        "username": "chef.mario",
+        "fullName": "Mario Cooks",
+        "profilePicture": "https://i.pravatar.cc/150?u=chef.mario",
+        "isVerified": false
+      },
+      "location": "Rome, Italy",
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "thumbnailUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "aspectRatio": "9:16",
+        "duration": 15,
+        "viewCount": 89043
+      },
+      "caption": "The secret to the perfect authentic Carbonara? No cream! Just egg yolks, pecorino, guanciale, and black pepper. 🍝👨‍🍳",
+      "hashtags": [
+        "#carbonara",
+        "#italianfood",
+        "#cookingreels",
+        "#pasta"
+      ],
+      "mentions": [
+        "@foodnetwork"
+      ],
+      "engagement": {
+        "likesCount": 45902,
+        "commentsCount": 1205,
+        "sharesCount": 5430,
+        "hasLiked": true,
+        "hasSaved": false
+      },
+      "timestamp": "2026-08-06T18:15:00Z",
+      "topComments": [
+        {
+          "id": "c_002",
+          "username": "pasta_lover",
+          "text": "Finally someone who does it right! No cream! 👏",
+          "likesCount": 892,
+          "timestamp": "2026-08-06T18:20:00Z"
+        }
+      ]
+    },
+    {
+      "id": "post_103",
+      "type": "carousel",
+      "user": {
+        "id": "u_003",
+        "username": "tech_setup",
+        "fullName": "Tech Workspace",
+        "profilePicture": "https://i.pravatar.cc/150?u=tech_setup",
+        "isVerified": false
+      },
+      "location": null,
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1080&q=80",
+          "https://images.unsplash.com/photo-1527443154391-4208ee4a7114?auto=format&fit=crop&w=1080&q=80",
+          "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "aspectRatio": "1:1"
+      },
+      "caption": "Swipe to see the evolution of my home office setup over the last 3 years! 💻⌨️ Which version is your favorite? 1, 2, or 3?",
+      "hashtags": [
+        "#desksetup",
+        "#workspace",
+        "#productivity",
+        "#tech",
+        "#mechanicalkeyboard"
+      ],
+      "mentions": [],
+      "engagement": {
+        "likesCount": 3211,
+        "commentsCount": 84,
+        "sharesCount": 12,
+        "hasLiked": false,
+        "hasSaved": true
+      },
+      "timestamp": "2026-08-07T09:00:00Z",
+      "topComments": [
+        {
+          "id": "c_003",
+          "username": "dev_life",
+          "text": "Setup 3 is incredibly clean. What monitor arm is that?",
+          "likesCount": 12,
+          "timestamp": "2026-08-07T09:12:00Z"
+        }
+      ]
+    },
+    {
+      "id": "post_104",
+      "type": "image",
+      "user": {
+        "id": "u_004",
+        "username": "fitness_junkie",
+        "fullName": "Sarah Fit",
+        "profilePicture": "https://i.pravatar.cc/150?u=fitness_junkie",
+        "isVerified": true
+      },
+      "location": "Gold's Gym",
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "aspectRatio": "4:5"
+      },
+      "caption": "Morning workouts are the best way to start the day! 💪 Never skip leg day. #fitness #gymlife #workout",
+      "hashtags": [
+        "#fitness",
+        "#gymlife",
+        "#workout",
+        "#motivation"
+      ],
+      "mentions": [],
+      "engagement": {
+        "likesCount": 8540,
+        "commentsCount": 120,
+        "sharesCount": 45,
+        "hasLiked": false,
+        "hasSaved": false
+      },
+      "timestamp": "2026-08-16T07:30:00Z",
+      "topComments": [
+        {
+          "id": "c_004",
+          "username": "gym_bro99",
+          "text": "Get those gains! 🔥",
+          "likesCount": 25,
+          "timestamp": "2026-08-16T07:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "post_105",
+      "type": "video",
+      "user": {
+        "id": "u_005",
+        "username": "artistic_vibes",
+        "fullName": "Leo Painter",
+        "profilePicture": "https://i.pravatar.cc/150?u=artistic_vibes",
+        "isVerified": false
+      },
+      "location": "My Studio",
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "thumbnailUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "aspectRatio": "9:16",
+        "duration": 30,
+        "viewCount": 15400
+      },
+      "caption": "Trust the process. 🎨 Watching a blank canvas come to life is my favorite feeling.",
+      "hashtags": [
+        "#art",
+        "#painting",
+        "#timelapse",
+        "#creative"
+      ],
+      "mentions": [],
+      "engagement": {
+        "likesCount": 3200,
+        "commentsCount": 89,
+        "sharesCount": 412,
+        "hasLiked": true,
+        "hasSaved": true
+      },
+      "timestamp": "2026-08-15T14:20:00Z",
+      "topComments": [
+        {
+          "id": "c_005",
+          "username": "color_lover",
+          "text": "The blending on this is absolutely unreal! 😍",
+          "likesCount": 156,
+          "timestamp": "2026-08-15T14:35:00Z"
+        }
+      ]
+    },
+    {
+      "id": "post_106",
+      "type": "carousel",
+      "user": {
+        "id": "u_006",
+        "username": "daily_memes",
+        "fullName": "Meme Lord",
+        "profilePicture": "https://i.pravatar.cc/150?u=daily_memes",
+        "isVerified": true
+      },
+      "location": null,
+      "content": {
+        "mediaUrls": [
+          "https://images.unsplash.com/photo-1531685250784-7569952593d2?auto=format&fit=crop&w=1080&q=80",
+          "https://images.unsplash.com/photo-1580477667995-1560811f24fc?auto=format&fit=crop&w=1080&q=80"
+        ],
+        "aspectRatio": "1:1"
+      },
+      "caption": "Slide 2 is literally me every Monday morning 😭💀",
+      "hashtags": [
+        "#memes",
+        "#funny",
+        "#relatable",
+        "#comedy"
+      ],
+      "mentions": [],
+      "engagement": {
+        "likesCount": 89500,
+        "commentsCount": 4200,
+        "sharesCount": 15000,
+        "hasLiked": false,
+        "hasSaved": false
+      },
+      "timestamp": "2026-08-17T10:00:00Z",
+      "topComments": [
+        {
+          "id": "c_006",
+          "username": "sarah_laughs",
+          "text": "I feel attacked by the second slide 😂",
+          "likesCount": 845,
+          "timestamp": "2026-08-17T10:05:00Z"
+        }
+      ]
+    }
+  ],
+  "profile": [
+    {
+      "id": "u_001",
+      "username": "Komi-kun",
+      "fullName": "Alex ",
+      "profilePicture": "https://i.pravatar.cc/150?u=travel_diaries",
+      "isVerified": true
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "u_002",
+      "username": "chef.mario",
+      "fullName": "Mario Cooks",
+      "profilePicture": "https://i.pravatar.cc/150?u=chef.mario",
+      "isVerified": false,
+      "isFollowing": true
+    },
+    {
+      "id": "u_003",
+      "username": "tech_setup",
+      "fullName": "Tech Workspace",
+      "profilePicture": "https://i.pravatar.cc/150?u=tech_setup",
+      "isVerified": false,
+      "isFollowing": true
+    },
+    {
+      "id": "u_004",
+      "username": "fitness_junkie",
+      "fullName": "Sarah Fit",
+      "profilePicture": "https://i.pravatar.cc/150?u=fitness_junkie",
+      "isVerified": true,
+      "isFollowing": true
+    },
+    {
+      "id": "u_005",
+      "username": "artistic_vibes",
+      "fullName": "Leo Painter",
+      "profilePicture": "https://i.pravatar.cc/150?u=artistic_vibes",
+      "isVerified": false,
+      "isFollowing": true
+    },
+    {
+      "id": "u_006",
+      "username": "daily_memes",
+      "fullName": "Meme Lord",
+      "profilePicture": "https://i.pravatar.cc/150?u=daily_memes",
+      "isVerified": true,
+      "isFollowing": true
+    }
+  ],
+  "story": [
+    {
+      "id": "101",
+      "type": "image",
+      "user": {
+        "id": "u_001",
+        "username": "travel_diaries",
+        "fullName": "Alex Explorer",
+        "profilePicture": "https://i.pravatar.cc/150?u=travel_diaries",
+        "isVerified": true
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    },
+    {
+      "id": "102",
+      "type": "image",
+      "user": {
+        "id": "u_002",
+        "username": "chef.mario",
+        "fullName": "Mario Cooks",
+        "profilePicture": "https://i.pravatar.cc/150?u=chef.mario",
+        "isVerified": false
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    },
+    {
+      "id": "103",
+      "type": "image",
+      "user": {
+        "id": "u_003",
+        "username": "tech_setup",
+        "fullName": "Tech Workspace",
+        "profilePicture": "https://i.pravatar.cc/150?u=tech_setup",
+        "isVerified": false
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    },
+    {
+      "id": "104",
+      "type": "image",
+      "user": {
+        "id": "u_004",
+        "username": "fitness_junkie",
+        "fullName": "Sarah Fit",
+        "profilePicture": "https://i.pravatar.cc/150?u=fitness_junkie",
+        "isVerified": true
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    },
+    {
+      "id": "105",
+      "type": "image",
+      "user": {
+        "id": "u_005",
+        "username": "artistic_vibes",
+        "fullName": "Leo Painter",
+        "profilePicture": "https://i.pravatar.cc/150?u=artistic_vibes",
+        "isVerified": false
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    },
+    {
+      "id": "106",
+      "type": "image",
+      "user": {
+        "id": "u_006",
+        "username": "daily_memes",
+        "fullName": "Meme Lord",
+        "profilePicture": "https://i.pravatar.cc/150?u=daily_memes",
+        "isVerified": true
+      },
+      "mediaUrls": [
+        "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1080&h=1920&q=80"
+      ],
+      "aspectRatio": "9:16"
+    }
+  ],
+  "followers": [
+    {
+      "id": "DOR2307SrGQ",
+      "username": "chef.mario",
+      "profilePicture": "https://i.pravatar.cc/150?u=chef.mario"
+    },
+    {
+      "id": "gQ29ALnY_b0",
+      "username": "tech_setup",
+      "profilePicture": "https://i.pravatar.cc/150?u=tech_setup"
+    },
+    {
+      "id": "TJJcsjd60W0",
+      "username": "fitness_junkie",
+      "profilePicture": "https://i.pravatar.cc/150?u=fitness_junkie"
+    },
+    {
+      "id": "ZJhG0sIvGP4",
+      "username": "artistic_vibes",
+      "profilePicture": "https://i.pravatar.cc/150?u=artistic_vibes"
+    },
+    {
+      "id": "ZrEvycsk4Q4",
+      "username": "daily_memes",
+      "profilePicture": "https://i.pravatar.cc/150?u=daily_memes"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
