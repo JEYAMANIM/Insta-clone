@@ -87,7 +87,10 @@ function Post() {
                     <img
                       className="w-9 h-9 rounded-full object-cover border-2 border-black"
                       src={userAvatar}
-                      alt={postItem.user?.username || 'User'}
+                      alt={`${postItem.user?.username || 'User'}'s avatar`}
+                      width="36"
+                      height="36"
+                      loading="lazy"
                     />
                   </div>
                   <div>
@@ -99,20 +102,41 @@ function Post() {
                     )}
                   </div>
                 </div>
-                <button className="text-neutral-400 hover:text-white text-lg px-2">•••</button>
+                <button 
+                  type="button"
+                  aria-label="More options"
+                  className="text-neutral-400 hover:text-white text-lg p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+                >
+                  •••
+                </button>
               </div>
 
-              {/* Post Media */}
+              {/* Post Media (supports image or video) */}
               <div
-                className="relative w-full bg-neutral-900 cursor-pointer overflow-hidden select-none"
+                className="relative w-full bg-neutral-900 overflow-hidden select-none"
                 onDoubleClick={() => handleToggleLike(postItem.id)}
               >
-                <img
-                  className="w-full h-auto max-h-[550px] object-cover mx-auto"
-                  src={postImage}
-                  alt={postItem.caption || 'Post image'}
-                  loading="lazy"
-                />
+                {postItem.type === 'video' ? (
+                  <video
+                    className="w-full h-auto max-h-[550px] object-cover mx-auto"
+                    src={postItem.content?.mediaUrls?.[0] || postImage}
+                    poster={postItem.content?.mediaUrls?.[0] || postImage}
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    className="w-full h-auto max-h-[550px] object-cover mx-auto cursor-pointer"
+                    src={postImage}
+                    alt={postItem.caption || 'Post image'}
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  />
+                )}
               </div>
 
               {/* Post Actions */}
@@ -122,35 +146,37 @@ function Post() {
                     <button
                       type="button"
                       onClick={() => handleToggleLike(postItem.id)}
-                      className={`transition-transform active:scale-125 ${
+                      className={`transition-transform active:scale-125 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded p-1 ${
                         isLiked ? 'text-red-500' : 'text-white hover:text-neutral-400'
                       }`}
-                      title={isLiked ? 'Unlike' : 'Like'}
+                      aria-label={isLiked ? `Unlike post by ${postItem.user?.username}` : `Like post by ${postItem.user?.username}`}
+                      aria-pressed={isLiked}
                     >
-                      {isLiked ? <FaHeart /> : <FaRegHeart />}
+                      {isLiked ? <FaHeart aria-hidden="true" /> : <FaRegHeart aria-hidden="true" />}
                     </button>
                     <button
                       type="button"
-                      className="text-white hover:text-neutral-400 transition-colors"
-                      title="Comment"
+                      className="text-white hover:text-neutral-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded p-1"
+                      aria-label={`Comment on post by ${postItem.user?.username}`}
                     >
-                      <FaRegComment />
+                      <FaRegComment aria-hidden="true" />
                     </button>
                     <button
                       type="button"
-                      className="text-white hover:text-neutral-400 transition-colors"
-                      title="Share"
+                      className="text-white hover:text-neutral-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded p-1"
+                      aria-label={`Share post by ${postItem.user?.username}`}
                     >
-                      <RiSendInsLine />
+                      <RiSendInsLine aria-hidden="true" />
                     </button>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleToggleSave(postItem.id)}
-                    className="text-lg text-white hover:text-neutral-400 transition-colors"
-                    title={isSaved ? 'Saved' : 'Save'}
+                    className="text-lg text-white hover:text-neutral-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded p-1"
+                    aria-label={isSaved ? `Unsave post by ${postItem.user?.username}` : `Save post by ${postItem.user?.username}`}
+                    aria-pressed={isSaved}
                   >
-                    {isSaved ? <FaBookmark className="text-neutral-200" /> : <FaRegBookmark />}
+                    {isSaved ? <FaBookmark className="text-neutral-200" aria-hidden="true" /> : <FaRegBookmark aria-hidden="true" />}
                   </button>
                 </div>
 
@@ -170,9 +196,13 @@ function Post() {
                 {/* Comments preview */}
                 {postItem.topComments && postItem.topComments.length > 0 && (
                   <div className="mt-2 space-y-1">
-                    <p className="text-xs text-neutral-400 cursor-pointer hover:text-neutral-300">
+                    <button 
+                      type="button"
+                      className="text-xs text-neutral-400 cursor-pointer hover:text-neutral-300 block text-left"
+                      aria-label={`View all ${postItem.engagement?.commentsCount || postItem.topComments.length} comments`}
+                    >
                       View all {postItem.engagement?.commentsCount || postItem.topComments.length} comments
-                    </p>
+                    </button>
                     {postItem.topComments.slice(0, 1).map((c) => (
                       <div key={c.id} className="text-xs">
                         <span className="font-semibold mr-1">{c.username}</span>

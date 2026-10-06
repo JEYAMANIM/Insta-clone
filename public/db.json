@@ -440,6 +440,5 @@
       "username": "daily_memes",
       "profilePicture": "https://i.pravatar.cc/150?u=daily_memes"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

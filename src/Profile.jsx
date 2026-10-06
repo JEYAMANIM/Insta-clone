@@ -147,10 +147,11 @@ function Profile() {
 
         <form onSubmit={handleUpdate} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
+            <label htmlFor="profile-username" className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
               Username
             </label>
             <input
+              id="profile-username"
               type="text"
               value={profile.username || ''}
               onChange={(e) => setProfile({ ...profile, username: e.target.value })}
@@ -161,10 +162,11 @@ function Profile() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
+            <label htmlFor="profile-fullname" className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
               Full Name
             </label>
             <input
+              id="profile-fullname"
               type="text"
               value={profile.fullName || ''}
               onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
@@ -175,10 +177,11 @@ function Profile() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
+            <label htmlFor="profile-bio" className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
               Bio
             </label>
             <input
+              id="profile-bio"
               type="text"
               value={profile.bio || ''}
               onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
@@ -189,7 +192,7 @@ function Profile() {
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-sm font-semibold py-2 px-6 rounded-lg transition-transform active:scale-95 shadow-md"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-sm font-semibold py-2 px-6 rounded-lg transition-transform active:scale-95 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 cursor-pointer"
           >
             Save Changes
           </button>

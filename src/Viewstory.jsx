@@ -86,10 +86,10 @@ function Viewstory() {
         {prevId >= 1 ? (
           <Link
             to={`/story/${prevId}/${totalStories}`}
-            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex"
-            title="Previous Story"
+            aria-label="Previous story"
+            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
           >
-            <IoArrowBackCircleSharp />
+            <IoArrowBackCircleSharp aria-hidden="true" />
           </Link>
         ) : (
           <div className="w-10 shrink-0 hidden sm:block" />
@@ -100,7 +100,14 @@ function Viewstory() {
           {/* Top Progress Bar & Header */}
           <div className="absolute top-0 inset-x-0 z-20 p-3 bg-gradient-to-b from-black/80 to-transparent space-y-2">
             {/* Progress line */}
-            <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
+            <div 
+              role="progressbar"
+              aria-valuenow={Math.round(progress)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Story timer progress"
+              className="w-full h-1 bg-white/30 rounded-full overflow-hidden"
+            >
               <div
                 className="h-full bg-white transition-all duration-100 ease-linear rounded-full"
                 style={{ width: `${progress}%` }}
@@ -116,7 +123,9 @@ function Viewstory() {
                     story.user?.profilePicture ||
                     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
                   }
-                  alt={story.user?.fullName || 'User'}
+                  alt={`${story.user?.fullName || 'User'}'s avatar`}
+                  width="32"
+                  height="32"
                 />
                 <span className="text-white text-xs font-semibold drop-shadow">
                   {story.user?.fullName || story.user?.username || 'Story'}
@@ -137,12 +146,16 @@ function Viewstory() {
             <img
               className="w-full h-full object-cover"
               src={story.mediaUrls?.[0] || story.mediaUrls}
-              alt="Story"
+              alt={`Story ${currentId} by ${story.user?.fullName || story.user?.username || 'User'}`}
+              loading="eager"
             />
           )}
 
           {/* Mobile Tap Areas for Next / Prev */}
           <div
+            role="button"
+            tabIndex={0}
+            aria-label="Previous story (tap left)"
             className="absolute inset-y-0 left-0 w-1/3 z-10 sm:hidden cursor-pointer"
             onClick={() => {
               if (prevId >= 1) navigate(`/story/${prevId}/${totalStories}`);
@@ -150,6 +163,9 @@ function Viewstory() {
             }}
           />
           <div
+            role="button"
+            tabIndex={0}
+            aria-label="Next story (tap right)"
             className="absolute inset-y-0 right-0 w-1/3 z-10 sm:hidden cursor-pointer"
             onClick={() => {
               if (nextId <= totalStories) navigate(`/story/${nextId}/${totalStories}`);
@@ -162,19 +178,19 @@ function Viewstory() {
         {nextId <= totalStories ? (
           <Link
             to={`/story/${nextId}/${totalStories}`}
-            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex"
-            title="Next Story"
+            aria-label="Next story"
+            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
           >
-            <IoArrowForwardCircle />
+            <IoArrowForwardCircle aria-hidden="true" />
           </Link>
         ) : (
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex"
-            title="Finish Stories"
+            aria-label="Close stories"
+            className="text-4xl text-white/70 hover:text-white hover:scale-110 transition shrink-0 hidden sm:flex focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
           >
-            <IoClose />
+            <IoClose aria-hidden="true" />
           </button>
         )}
       </div>

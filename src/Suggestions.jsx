@@ -129,7 +129,9 @@ function Suggestions() {
               <button
                 type="button"
                 onClick={(e) => handleToggleFollow(e, item)}
-                className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors ${
+                aria-label={item.isFollowing ? `Unfollow ${item.username}` : `Follow ${item.username}`}
+                aria-pressed={item.isFollowing}
+                className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 cursor-pointer ${
                   item.isFollowing
                     ? 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
                     : 'bg-blue-600 text-white hover:bg-blue-500'

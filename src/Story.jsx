@@ -42,7 +42,10 @@ function Story() {
   const totalStories = stories.length;
 
   return (
-    <div className="flex items-center gap-4 h-28 w-full overflow-x-auto p-2 no-scrollbar">
+    <div 
+      aria-label="Stories bar"
+      className="flex items-center gap-4 h-28 w-full overflow-x-auto py-2 px-1 scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+    >
       {stories.length > 0 ? (
         stories.map((item, index) => {
           const storyIndex = index + 1;
@@ -50,23 +53,28 @@ function Story() {
           const name = item.user?.fullName || item.user?.username || 'User';
 
           return (
-            <div
+            <button
+              type="button"
               key={item.id || index}
               onClick={() => navigate(`/story/${storyIndex}/${totalStories}`)}
-              className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group transition-transform active:scale-95"
+              aria-label={`View story of ${name}`}
+              className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group transition-transform active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded-full"
             >
               {/* Instagram story border gradient ring */}
               <div className="p-[2.5px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 rounded-full group-hover:scale-105 transition-transform duration-200">
                 <img
                   src={avatar}
-                  alt={name}
+                  alt={`${name}'s story avatar`}
+                  width="56"
+                  height="56"
+                  loading="lazy"
                   className="w-14 h-14 rounded-full object-cover border-2 border-black bg-neutral-900"
                 />
               </div>
               <p className="text-xs text-neutral-300 truncate w-16 text-center group-hover:text-white transition-colors">
                 {name}
               </p>
-            </div>
+            </button>
           );
         })
       ) : (
