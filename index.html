@@ -27,9 +27,11 @@
     <link rel="icon" type="image/jpeg" href="/src/assets/instagram_logo.jpg" />
     <link rel="apple-touch-icon" href="/src/assets/instagram_logo.jpg" />
 
-    <!-- Preconnect for performance on external image CDN -->
-    <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://i.pravatar.cc" />
+    <!-- Preconnect & DNS-Prefetch for external image CDNs -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://i.pravatar.cc" />
+    <link rel="preconnect" href="https://i.pravatar.cc" crossorigin />
   </head>
   <body class="bg-black text-white antialiased selection:bg-pink-600 selection:text-white">
     <div id="root"></div>

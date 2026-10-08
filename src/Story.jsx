@@ -1,6 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiClient } from './api/apiClient';
+
+// Memoised story bubble – only re-renders if its own props change
+const StoryBubble = memo(function StoryBubble({ item, index, totalStories, navigate }) {
+  const avatar =
+    item.user?.profilePicture ||
+    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150';
+  const name = item.user?.fullName || item.user?.username || 'User';
+  const storyIndex = index + 1;
+
+  return (
+    <button
+      type="button"
+      onClick={() => navigate(`/story/${storyIndex}/${totalStories}`)}
+      aria-label={`View story of ${name}`}
+      className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group transition-transform active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded-full"
+    >
+      {/* Instagram story border gradient ring */}
+      <div className="p-[2.5px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 rounded-full group-hover:scale-105 transition-transform duration-200">
+        <img
+          src={avatar}
+          alt={`${name}'s story`}
+          width="56"
+          height="56"
+          loading="lazy"
+          decoding="async"
+          className="w-14 h-14 rounded-full object-cover border-2 border-black bg-neutral-900"
+        />
+      </div>
+      <p className="text-xs text-neutral-300 truncate w-16 text-center group-hover:text-white transition-colors">
+        {name}
+      </p>
+    </button>
+  );
+});
 
 function Story() {
   const [stories, setStories] = useState([]);
@@ -9,7 +43,8 @@ function Story() {
 
   useEffect(() => {
     let isMounted = true;
-    apiClient.getStories()
+    apiClient
+      .getStories()
       .then((data) => {
         if (isMounted) {
           setStories(Array.isArray(data) ? data : []);
@@ -31,8 +66,8 @@ function Story() {
       <div className="flex items-center gap-3 h-28 w-full overflow-x-auto p-2">
         {[1, 2, 3, 4, 5].map((n) => (
           <div key={n} className="flex flex-col items-center gap-2 shrink-0 animate-pulse">
-            <div className="w-16 h-16 rounded-full bg-neutral-800"></div>
-            <div className="w-12 h-2.5 bg-neutral-800 rounded"></div>
+            <div className="w-16 h-16 rounded-full bg-neutral-800" />
+            <div className="w-12 h-2.5 bg-neutral-800 rounded" />
           </div>
         ))}
       </div>
@@ -42,41 +77,20 @@ function Story() {
   const totalStories = stories.length;
 
   return (
-    <div 
+    <div
       aria-label="Stories bar"
       className="flex items-center gap-4 h-28 w-full overflow-x-auto py-2 px-1 scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
     >
       {stories.length > 0 ? (
-        stories.map((item, index) => {
-          const storyIndex = index + 1;
-          const avatar = item.user?.profilePicture || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150';
-          const name = item.user?.fullName || item.user?.username || 'User';
-
-          return (
-            <button
-              type="button"
-              key={item.id || index}
-              onClick={() => navigate(`/story/${storyIndex}/${totalStories}`)}
-              aria-label={`View story of ${name}`}
-              className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group transition-transform active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 rounded-full"
-            >
-              {/* Instagram story border gradient ring */}
-              <div className="p-[2.5px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 rounded-full group-hover:scale-105 transition-transform duration-200">
-                <img
-                  src={avatar}
-                  alt={`${name}'s story avatar`}
-                  width="56"
-                  height="56"
-                  loading="lazy"
-                  className="w-14 h-14 rounded-full object-cover border-2 border-black bg-neutral-900"
-                />
-              </div>
-              <p className="text-xs text-neutral-300 truncate w-16 text-center group-hover:text-white transition-colors">
-                {name}
-              </p>
-            </button>
-          );
-        })
+        stories.map((item, index) => (
+          <StoryBubble
+            key={item.id || index}
+            item={item}
+            index={index}
+            totalStories={totalStories}
+            navigate={navigate}
+          />
+        ))
       ) : (
         <p className="text-gray-400 text-sm p-4">No stories found</p>
       )}

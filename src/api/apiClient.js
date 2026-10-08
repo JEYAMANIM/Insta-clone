@@ -17,25 +17,28 @@ const STORAGE_KEYS = {
   LOADED: 'insta_data_loaded',
 };
 
-// Cache in memory so we don't re-fetch every render
-let _cachedDb = null;
+// Promise-based dedup cache – concurrent callers share the same in-flight request
+// instead of spawning multiple fetches on initial render.
+let _dbPromise = null;
 
 /**
  * Fetches /db.json from the static public folder.
  * Returns null on any failure so callers can fall back gracefully.
  */
 async function fetchStaticDb() {
-  if (_cachedDb) return _cachedDb;
-  try {
-    const res = await fetch('/db.json', { cache: 'no-store' });
-    if (!res.ok) return null;
-    const data = await res.json();
-    _cachedDb = data;
-    return data;
-  } catch {
-    return null;
-  }
+  if (_dbPromise) return _dbPromise;
+  _dbPromise = (async () => {
+    try {
+      const res = await fetch('/db.json', { cache: 'force-cache' });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  })();
+  return _dbPromise;
 }
+
 
 /** Read from localStorage; falls back to provided default. */
 function getLocal(key, fallback) {

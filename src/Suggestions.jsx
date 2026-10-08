@@ -1,6 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiClient } from './api/apiClient';
+
+const SuggestionItem = memo(function SuggestionItem({ item, onToggleFollow }) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <img
+          className="w-9 h-9 rounded-full object-cover ring-1 ring-neutral-800"
+          src={
+            item.profilePicture ||
+            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+          }
+          alt={item.username}
+          width="36"
+          height="36"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold">{item.username}</span>
+          <span className="text-[11px] text-neutral-500">Suggested for you</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={(e) => onToggleFollow(e, item)}
+        aria-label={item.isFollowing ? `Unfollow ${item.username}` : `Follow ${item.username}`}
+        aria-pressed={item.isFollowing}
+        className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 cursor-pointer ${
+          item.isFollowing
+            ? 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+            : 'bg-blue-600 text-white hover:bg-blue-500'
+        }`}
+      >
+        {item.isFollowing ? 'Following' : 'Follow'}
+      </button>
+    </div>
+  );
+});
 
 function Suggestions() {
   const [profile, setProfile] = useState(null);
@@ -29,11 +68,10 @@ function Suggestions() {
     };
   }, []);
 
-  const handleToggleFollow = async (e, item) => {
+  const handleToggleFollow = useCallback(async (e, item) => {
     e.preventDefault();
     const nextState = !item.isFollowing;
 
-    // Optimistic UI update
     setSuggestions((prev) =>
       prev.map((user) =>
         user.id === item.id ? { ...user, isFollowing: nextState } : user
@@ -41,7 +79,7 @@ function Suggestions() {
     );
 
     await apiClient.toggleFollow(item.id, nextState);
-  };
+  }, []);
 
   if (loading) {
     return (
@@ -74,6 +112,10 @@ function Suggestions() {
                   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
                 }
                 alt={profile.username || 'User'}
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="flex flex-col">
@@ -109,37 +151,11 @@ function Suggestions() {
       <div className="space-y-4">
         {suggestions.length > 0 ? (
           suggestions.map((item) => (
-            <div key={item.id} className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img
-                  className="w-9 h-9 rounded-full object-cover ring-1 ring-neutral-800"
-                  src={
-                    item.profilePicture ||
-                    `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150`
-                  }
-                  alt={item.username}
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold">{item.username}</span>
-                  <span className="text-[11px] text-neutral-500">Suggested for you</span>
-                </div>
-              </div>
-
-              {/* Follow / Following Toggle Button */}
-              <button
-                type="button"
-                onClick={(e) => handleToggleFollow(e, item)}
-                aria-label={item.isFollowing ? `Unfollow ${item.username}` : `Follow ${item.username}`}
-                aria-pressed={item.isFollowing}
-                className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 cursor-pointer ${
-                  item.isFollowing
-                    ? 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                    : 'bg-blue-600 text-white hover:bg-blue-500'
-                }`}
-              >
-                {item.isFollowing ? 'Following' : 'Follow'}
-              </button>
-            </div>
+            <SuggestionItem
+              key={item.id}
+              item={item}
+              onToggleFollow={handleToggleFollow}
+            />
           ))
         ) : (
           <p className="text-xs text-neutral-500">No suggestions available</p>
@@ -154,4 +170,4 @@ function Suggestions() {
   );
 }
 
-export default Suggestions;
+export default memo(Suggestions);
