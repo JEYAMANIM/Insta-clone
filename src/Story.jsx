@@ -37,8 +37,8 @@ const StoryBubble = memo(function StoryBubble({ item, index, totalStories, navig
 });
 
 function Story() {
-  const [stories, setStories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [stories, setStories] = useState(() => apiClient.getInitialStoriesSync() || []);
+  const [loading, setLoading] = useState(() => stories.length === 0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +47,9 @@ function Story() {
       .getStories()
       .then((data) => {
         if (isMounted) {
-          setStories(Array.isArray(data) ? data : []);
+          if (Array.isArray(data) && data.length > 0) {
+            setStories(data);
+          }
           setLoading(false);
         }
       })

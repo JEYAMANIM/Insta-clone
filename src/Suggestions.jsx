@@ -42,9 +42,9 @@ const SuggestionItem = memo(function SuggestionItem({ item, onToggleFollow }) {
 });
 
 function Suggestions() {
-  const [profile, setProfile] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(() => apiClient.getInitialProfileSync());
+  const [suggestions, setSuggestions] = useState(() => apiClient.getInitialSuggestionsSync() || []);
+  const [loading, setLoading] = useState(() => !profile && suggestions.length === 0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +54,9 @@ function Suggestions() {
       .then(([profData, suggData]) => {
         if (isMounted) {
           if (profData) setProfile(profData);
-          if (suggData) setSuggestions(Array.isArray(suggData) ? suggData : []);
+          if (suggData && Array.isArray(suggData) && suggData.length > 0) {
+            setSuggestions(suggData);
+          }
           setLoading(false);
         }
       })

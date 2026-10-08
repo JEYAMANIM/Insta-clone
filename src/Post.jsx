@@ -54,12 +54,12 @@ const PostCard = memo(function PostCard({ postItem, isSaved, onToggleLike, onTog
 
       {/* Post Media */}
       <div
-        className="relative w-full bg-neutral-900 overflow-hidden select-none"
+        className="relative w-full bg-neutral-900 overflow-hidden select-none aspect-[4/5] max-h-[550px]"
         onDoubleClick={() => onToggleLike(postItem.id)}
       >
         {postItem.type === 'video' ? (
           <video
-            className="w-full h-auto max-h-[550px] object-cover mx-auto"
+            className="w-full h-full object-cover mx-auto"
             src={postItem.content?.mediaUrls?.[0] || postImage}
             poster={postItem.content?.mediaUrls?.[0] || postImage}
             controls
@@ -70,14 +70,14 @@ const PostCard = memo(function PostCard({ postItem, isSaved, onToggleLike, onTog
           </video>
         ) : (
           <img
-            className="w-full h-auto max-h-[550px] object-cover mx-auto cursor-pointer"
+            className="w-full h-full object-cover mx-auto cursor-pointer"
             src={postImage}
             alt={postItem.caption || 'Post image'}
             loading={priority ? 'eager' : 'lazy'}
             fetchpriority={priority ? 'high' : 'low'}
             decoding={priority ? 'sync' : 'async'}
             width="600"
-            height="600"
+            height="750"
           />
         )}
       </div>
@@ -167,8 +167,8 @@ const PostCard = memo(function PostCard({ postItem, isSaved, onToggleLike, onTog
 // Post – container that owns state, passes stable callbacks to PostCard
 // ---------------------------------------------------------------------------
 function Post() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState(() => apiClient.getInitialPostsSync() || []);
+  const [loading, setLoading] = useState(() => posts.length === 0);
   const [savedPosts, setSavedPosts] = useState({});
 
   useEffect(() => {
@@ -177,7 +177,9 @@ function Post() {
       .getPosts()
       .then((data) => {
         if (isMounted) {
-          setPosts(Array.isArray(data) ? data : []);
+          if (Array.isArray(data) && data.length > 0) {
+            setPosts(data);
+          }
           setLoading(false);
         }
       })

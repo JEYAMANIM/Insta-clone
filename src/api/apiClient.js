@@ -57,6 +57,26 @@ function setLocal(key, value) {
 }
 
 export const apiClient = {
+  /** Get initial posts synchronously from localStorage or bundled mockData for instant render without loading spinner */
+  getInitialPostsSync() {
+    return getLocal(STORAGE_KEYS.POSTS, initialData.posts);
+  },
+
+  /** Get initial stories synchronously for instant render */
+  getInitialStoriesSync() {
+    return initialData.story;
+  },
+
+  /** Get initial profile synchronously */
+  getInitialProfileSync() {
+    return getLocal(STORAGE_KEYS.PROFILE, initialData.profile[0]);
+  },
+
+  /** Get initial suggestions synchronously */
+  getInitialSuggestionsSync() {
+    return getLocal(STORAGE_KEYS.SUGGESTIONS, initialData.suggestions);
+  },
+
   /** Fetch all feed posts */
   async getPosts() {
     const db = await fetchStaticDb();
