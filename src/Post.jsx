@@ -13,7 +13,7 @@ const PostCard = memo(function PostCard({ postItem, isSaved, onToggleLike, onTog
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150';
   const postImage =
     postItem.content?.mediaUrls?.[0] ||
-    'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800';
+    'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=1080&q=80';
 
   return (
     <article
